@@ -1,5 +1,4 @@
 
-import plotly.express as px
 import google.generativeai as genai
 import io
 
