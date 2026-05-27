@@ -1,26 +1,4 @@
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-import google.generativeai as genai
-import io
-
-# إعدادات الصفحة العامة للتطبيق
-st.set_page_config(
-    page_title="منصة تحليل بيانات الطالبات الذكية",
-    page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# تطبيق تنسيق CSS لتحسين المظهر وجعل الواجهة تدعم اللغة العربية (RTL)
-st.markdown("""
-    <style>
-    body { direction: rtl; text-align: right; }
-    .stTabs [data-baseweb="tab-list"] { gap: 10px; direction: rtl; }
-    .stTabs [data-baseweb="tab"] {
-        background-color: #f0f2f6;
-        border-radius: 4px 4px 0px 0px;
-        padding: 10px 20px;
+import streamlit as stng: 10px 20px;
         font-weight: bold;
     }
     .stTabs [aria-selected="true"] { background-color: #4CAF50; color: white; }
@@ -113,8 +91,7 @@ if uploaded_file is not None:
                 if st.button("🚀 تشغيل الذكاء الاصطناعي وقراءة البيانات"):
                     with st.spinner("🔄 يقوم الذكاء الاصطناعي حالياً بقراءة البيانات وصياغة الخطط..."):
                         try:
-                            genai.configure(api_key=api_key)
-                                                        model = genai.GenerativeModel('gemini-1.5-flash')
+                            genai.configure(api_key=
 
                             response = model.generate_content(prompt)
                             
