@@ -26,7 +26,7 @@ st.markdown("""
     .stTabs [aria-selected="true"] { background-color: #4CAF50; color: white; }
     div.stButton > button:first-child { background-color: #4CAF50; color: white; border-radius: 8px; }
     </style>
-""", unsafe_allow_index=True)
+""", unsafe_allow_html=True)  # تم تصحيح الكلمة هنا لتعمل بدون أخطاء
 
 st.title("📊 منصة تحليل بيانات الطالبات المدعومة بالذكاء الاصطناعي")
 st.subheader("تحليل ذكي، خطط علاجية، وتقارير فورية لأي ملف إكسل")
@@ -67,7 +67,7 @@ if uploaded_file is not None:
         with tab_data:
             st.header("📁 بيانات الجدول المرفوع")
             st.dataframe(df, use_container_width=True)
-            st.metric(label="إجمالي عدد السجلات (الطالبات/المواد)", value=df.shape[0])
+            st.metric(label="إجمالي عدد السجلات (الطالبات/المواد)", value=str(df.shape[0]))
 
         # --- 2️⃣ أيقونة تحليل النتائج في صورة أعمدة ---
         with tab_charts:
