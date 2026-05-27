@@ -1,10 +1,32 @@
-import streamlit as stng: 10px 20px;
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import google.generativeai as genai
+import io
+
+# إعدادات الصفحة العامة للتطبيق
+st.set_page_config(
+    page_title="منصة تحليل بيانات الطالبات الذكية",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# تطبيق تنسيق CSS لتحسين المظهر وجعل الواجهة تدعم اللغة العربية (RTL)
+st.markdown("""
+    <style>
+    body { direction: rtl; text-align: right; }
+    .stTabs [data-baseweb="tab-list"] { gap: 10px; direction: rtl; }
+    .stTabs [data-baseweb="tab"] {
+        background-color: #f0f2f6;
+        border-radius: 4px 4px 0px 0px;
+        padding: 10px 20px;
         font-weight: bold;
     }
     .stTabs [aria-selected="true"] { background-color: #4CAF50; color: white; }
     div.stButton > button:first-child { background-color: #4CAF50; color: white; border-radius: 8px; }
     </style>
-""", unsafe_allow_html=True)  # تم تصحيح الكلمة هنا لتعمل بدون أخطاء
+""", unsafe_allow_html=True)
 
 st.title("📊 منصة تحليل بيانات الطالبات المدعومة بالذكاء الاصطناعي")
 st.subheader("تحليل ذكي، خطط علاجية، وتقارير فورية لأي ملف إكسل")
@@ -45,7 +67,7 @@ if uploaded_file is not None:
         with tab_data:
             st.header("📁 بيانات الجدول المرفوع")
             st.dataframe(df, use_container_width=True)
-            st.metric(label="إجمالي عدد السجلات (الطالبات/المواد)", value=str(df.shape[0]))
+            st.metric(label="إجمالي عدد السجلات (الطالبات/المواد)", value=str(df.shape))
 
         # --- 2️⃣ أيقونة تحليل النتائج في صورة أعمدة ---
         with tab_charts:
@@ -58,7 +80,6 @@ if uploaded_file is not None:
                     y_axis = st.selectbox("اختر محور Y (الدرجات أو التقييمات):", columns, index=min(1, len(columns)-1))
                 
                 color_axis = st.selectbox("فرز الألوان حسب (اختياري):", ["بدون فرز"] + columns)
-                
                 color_param = None if color_axis == "بدون فرز" else color_axis
                 
                 fig = px.bar(df, x=x_axis, y=y_axis, color=color_param, title=f"تحليل {y_axis} بالنسبة إلى {x_axis}", barmode="group")
@@ -91,8 +112,9 @@ if uploaded_file is not None:
                 if st.button("🚀 تشغيل الذكاء الاصطناعي وقراءة البيانات"):
                     with st.spinner("🔄 يقوم الذكاء الاصطناعي حالياً بقراءة البيانات وصياغة الخطط..."):
                         try:
-                            genai.configure(api_key=
-
+                            genai.configure(api_key=api_key)
+                            # تم تحديث النموذج هنا ليكون متوافقاً تماماً وبدون أخطاء مسافات
+                            model = genai.GenerativeModel('gemini-1.5-flash')
                             response = model.generate_content(prompt)
                             
                             # حفظ نص الذكاء الاصطناعي في الـ session_state للاستفادة منه في قسم التقارير
