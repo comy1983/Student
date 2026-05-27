@@ -84,7 +84,8 @@ if uploaded_file is not None:
                     with st.spinner("🔄 يقوم الذكاء الاصطناعي حالياً بقراءة البيانات وصياغة الخطط التربوية..."):
                         try:
                             genai.configure(api_key=api_key)
-                            model = genai.GenerativeModel('gemini-1.5-flash')
+                            model = genai.GenerativeModel('gemini-1.5-flash-latest')
+
                             response = model.generate_content(prompt)
                             st.session_state['ai_report'] = response.text
                             st.success("✨ تم إنشاء الخطط بنجاح!")
